@@ -1,8 +1,5 @@
 let stands;
-async function init() {
-  stands = await fetch( './stands.json' ).then( blob => blob.json() );
-  loadStand();
-}
+
 function loadStand() {
   [...document.querySelectorAll( 'button' )].map( a => {
     a.parentNode.removeChild(a);
@@ -46,9 +43,7 @@ function loadStand() {
   });
 }
 
-function rand(a, b) {
-  return Math.floor(Math.random() * b) + a;
-}
+const rand = (a, b) => Math.floor(Math.random() * b) + a;
 
 function createOption( stand, correct ) {
   const button = document.createElement( 'button' );
@@ -57,6 +52,11 @@ function createOption( stand, correct ) {
 
   const container = document.querySelector( '.options' );
   container.appendChild( button );
+}
+
+async function init() {
+  stands = await fetch( './stands.json' ).then( blob => blob.json() );
+  loadStand();
 }
 
 document.onload = init();
